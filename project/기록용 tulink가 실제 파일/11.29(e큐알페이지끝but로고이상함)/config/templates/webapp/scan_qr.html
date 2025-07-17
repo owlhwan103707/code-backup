@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR 스캔 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFA500;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR 스캔 페이지</h1>
+    <p class="price">선택된 가격: {{ price }}원</p>
+    <img src="{{ image_path }}" alt="링크 이미지">
+</body>
+</html>

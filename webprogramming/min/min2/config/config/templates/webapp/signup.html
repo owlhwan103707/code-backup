@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+<body>
+
+    <form method="post" class="post-form">
+        {% csrf_token %}
+        {% include "webapp/form_errors.html" %}
+
+        <a href="{% url 'webapp:login' %}">LOGIN</a>
+
+        <label for="username">아이디</label>
+        <input type="text" name="username" id="username"
+               value="{{ form.username.value|default_if_none:'' }}">
+
+        <label for="password1">비밀번호</label>
+        <input type="password" name="password1" id="password1"
+               value="{{ form.password1.value|default_if_none:'' }}">
+
+        <label for="password2">비밀번호 확인</label>
+        <input type="password" name="password2" id="password2"
+               value="{{ form.password2.value|default_if_none:'' }}">
+
+        <label for="email">이메일</label>
+        <input type="text" name="email" id="email"
+               value="{{ form.email.value|default_if_none:'' }}">
+
+        <input type="submit" value="확인" style="background-color: lightgray;">
+    </form>
+
+</body>
+</html>

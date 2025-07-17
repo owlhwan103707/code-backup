@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tulink 전공 선택</title>
+    {% load static %}
+
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #171A1F;
+        }
+
+        /* 페이지 전체 컨테이너 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #FFFFFF;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* 헤더 */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .header-logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            color: #12177A;
+            margin-left: 200px;
+        }
+
+        .box-container {
+            padding: 30px;
+            box-shadow: #636AE8FF;
+        }
+        /* 드롭다운 컨테이너 */
+        .dropdown-container {
+            margin-bottom: 30px;
+            margin-top: -20px;
+        }
+
+        .dropdown-label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .dropdown {
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            background-color: #FFFFFF;
+            color: #12177A;
+        }
+
+        /* 카드 컨테이너 */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-height: 400px; /* 스크롤 제한 높이 설정 */
+            overflow-y: auto; /* 세로 스크롤 활성화 */
+            padding: 20px;
+            border: 1px solid #CCCCCC; /* 스크롤 영역 강조 */
+            border-radius: 10px;
+            background-color: #F9FAFB;
+        }
+
+        /* 카드 스타일 */
+        .card {
+            width: 30%; /* 3열을 맞추기 위해 30%로 설정 */
+            max-width: 200px; /* 카드의 최대 너비 제한 */
+            padding: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            background-color: #FFFFFF;
+            border: 2px solid #12177A;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            pointer-events: auto; /* 이벤트가 차단되지 않도록 설정 */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 스크롤바 디자인 */
+        .card-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .card-container::-webkit-scrollbar-thumb {
+            background-color: #12177A; /* 스크롤바 색상 */
+            border-radius: 10px;
+        }
+
+        .card-container::-webkit-scrollbar-track {
+            background-color: #F9FAFB; /* 트랙 색상 */
+        }
+
+        .card-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #12177A;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            font-size: 20px;
+            color: #555555;
+        }
+
+        .card.selected {
+            border-color: #636AE8FF; /* 강조 색상 */
+            box-shadow: 0 4px 10px rgba(99, 106, 232, 0.4);
+            transform: scale(1.05); /* 살짝 확대 */
+        }
+
+        /* 하단 설명 및 버튼 */
+        .bottom-container {
+            z-index: 1;
+            display: flex;
+            font-family: Archivo, sans-serif;
+            flex-direction: column;  /* 수직으로 배치 */
+            align-items: center;     /* 중앙 정렬 */
+            justify-content: flex-end; /* 하단 정렬 */
+            width: 100%;
+            height: 100%;
+            margin-top: auto;        /* 하단에 고정 */
+            margin-bottom : 50px;
+        }
+
+        .bottom-button {
+            margin-top: 20px;
+            width: 150px;
+            height: 50px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Inter, sans-serif;
+            font-size: 18px;
+            line-height: 36px;
+            font-weight: 600;
+            color: #FFFFFFFF; /* white */
+            background: #636AE8FF; /* primary-500 */
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* 버튼 효과 */
+        .bottom-button:hover {
+            background: #4850E4FF; /* primary-550 */
+        }
+
+        .bottom-button:active {
+            background: #2C35E0FF; /* primary-600 */
+        }
+
+        .bottom-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-logo">
+                <a href="{% url 'webapp:after_login' %}">
+                    <img src="{% static 'Tulink 로고test.png' %}" alt="튜링크 로고">
+                </a>
+            </div>
+            <div class="title">Tulink하고 싶은 전공을 선택하세요</div>
+        </header>
+
+        <div class = "box-container">
+            <!-- 단과대학 선택 -->
+            <div class="dropdown-container">
+                <label for="university" class="dropdown-label">단과대학</label>
+                <select id="university" class="dropdown">
+                    <option value="" selected>선택하기</option>
+                    <option value="과학기술대학">과학기술대학</option>
+                    <option value="동아시아국제학부">동아시아국제학부</option>
+                    <option value="보건과학대학">보건과학대학</option>
+                    <option value="원주의과대학 / 의과대학">원주의과대학 / 의과대학</option>
+                    <option value="인문예술대학">인문예술대학</option>
+                    <option value="과학기술융합대학">과학기술융합대학</option>
+                    <option value="글로벌엘리트학부">글로벌엘리트학부</option>
+                    <option value="글로벌창의융합대학">글로벌창의융합대학</option>
+                    <option value="RC융합대학">RC융합대학</option>
+                    <option value="소프트웨어디지털헬스케어융합대학">소프트웨어디지털헬스케어융합대학</option>
+                    <option value="반도체시스템공학부">반도체시스템공학부</option>
+                    <option value="원주간호대학">원주간호대학</option>
+                </select>
+            </div>
+
+
+            <!-- 카드 선택 -->
+            <form id="major-form" method="POST" action="{% url 'webapp:do_tulink1' %}">
+                {% csrf_token %}
+                <div class="card-container">
+                    {% for major in majors %}
+                        <div class="card">
+                            <img src="{% static '연세대학교마크1.jpg' %}" alt="대학로고" class="card-logo">
+                            <div class="card-title">{{ major }}</div>
+                        </div>
+
+                        {% endfor %}
+
+                </div>
+                <!-- 선택된 전공 저장 -->
+                <input type="hidden" id="selected-major" name="major" required>         <!-- 선택이 중복된 애들 때문에 구분이 안 됨 -->
+            </form>
+        </div>
+
+        <div class="bottom-container">
+            <button type="submit" form="major-form" class="bottom-button" id="confirm-button" disabled>
+                선택완료
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach((card) => {
+                const major = card.querySelector('.card-title').textContent.trim();
+
+                card.addEventListener('click', () => {
+                    selectMajor(major);
+                });
+            });
+        });
+
+        function selectMajor(major) {
+            console.log("선택된 전공:", major);
+
+            const cards = document.querySelectorAll('.card');
+            const selectedCard = Array.from(cards).find(
+                (card) => card.querySelector('.card-title').textContent.trim() === major
+            );
+
+            if (selectedCard) {
+                if (selectedCard.classList.contains('selected')) {
+                    selectedCard.classList.remove('selected');
+                    document.getElementById('selected-major').value = "";
+                    document.getElementById('confirm-button').disabled = true;
+                } else {
+                    const previouslySelected = document.querySelector('.card.selected');
+                    if (previouslySelected) {
+                        previouslySelected.classList.remove('selected');
+                    }
+
+                    selectedCard.classList.add('selected');
+                    document.getElementById('selected-major').value = major;
+                    document.getElementById('confirm-button').disabled = false;
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

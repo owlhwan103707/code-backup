@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 1</title>
+</head>
+<body>
+    <!-- 회원가입 첫 번째 단계: 별명(Nickname), 이메일(Email), 비밀번호(Password) 입력 -->
+    <h1>회원가입 1페이지</h1>
+
+    <!-- 사용자 입력 폼 -->
+    <form method="POST">
+        {% csrf_token %} <!-- CSRF 보안을 위한 토큰 -->
+
+        <!-- 닉네임 입력 필드 -->
+        <label for="name">Nickname:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+
+        <!-- 이메일 입력 필드 -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br><br>
+
+        <!-- 비밀번호 입력 필드 -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+
+        <!-- 다음 단계로 이동하는 버튼 -->
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

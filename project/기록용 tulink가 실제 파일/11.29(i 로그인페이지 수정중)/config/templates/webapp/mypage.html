@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <style>
+        .info-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px;
+        }
+        .info-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+        .info-text {
+            font-size: 18px;
+            color: #333;
+        }
+        .link-balance {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>마이페이지</h1>
+
+    <!-- 사용자 정보 섹션 -->
+    <div class="info-container">
+        <!-- 사용자 메달 이미지 출력 -->
+        <img src="{{ medal_image }}" alt="메달 이미지"> <!-- medal_image는 view에서 전달된 메달 이미지 URL -->
+        <div class="info-text">
+            <!-- 사용자 이름과 현재 보유하고 있는 Link 출력 -->
+            {{ user_name }}님은 현재
+            <span class="link-balance" style="color: {{ link_color }};">
+                {{ link_balance }} Link
+            </span>를 보유하고 있습니다.
+        </div>
+    </div>
+
+    <!-- 추가 사용자 정보 -->
+    <p>Email: {{ user_email }}</p>
+    <p>Current Major: {{ user_major }}</p>
+    <p>Tutoring Major(s): {{ user_tutoring_major }}</p>
+    <p>Available Days: {{ user_available_days }}</p>
+    <p>Available Times: {{ user_available_times }}</p>
+
+    <!-- 회원정보 수정하기 버튼 -->
+    <form action="{% url 'webapp:edit_user' %}" method="get">
+        <button type="submit">회원정보 수정하기</button>
+    </form>
+
+    <!-- Link 구매하기 버튼 -->
+    <form action="{% url 'webapp:buy_link' %}" method="get">
+        <button type="submit">Link 구매하기</button>
+    </form>
+    <!-- Tulink 탈퇴하기 버튼 -->
+    <form id="delete-account-form" action="{% url 'webapp:delete_account' %}" method="post" style="margin-top: 20px;">
+        {% csrf_token %} <!-- CSRF 보호 토큰 -->
+        <button type="button" onclick="confirmDeletion()">Tulink 탈퇴하기</button>
+    </form>
+
+    <script>
+        function confirmDeletion() {
+            if (confirm("정말 Tulink의 회원 탈퇴를 진행하시겠습니까?")) {
+                document.getElementById("delete-account-form").submit(); // 탈퇴 폼 제출
+            }
+        }
+    </script>
+</body>
+</html>

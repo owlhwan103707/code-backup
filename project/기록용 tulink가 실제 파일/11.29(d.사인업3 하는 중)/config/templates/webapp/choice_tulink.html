@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matched User Profiles</title>
+    <style>
+        /* 카드 디자인 스타일링 */
+        .card {
+            border: 1px solid #ccc; /* 카드 테두리 */
+            border-radius: 8px; /* 카드 모서리 둥글게 */
+            padding: 16px; /* 카드 안쪽 여백 */
+            margin: 8px; /* 카드 외부 여백 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            max-width: 400px; /* 카드 최대 너비 */
+        }
+        /* 카드 컨테이너 스타일링 */
+        .container {
+            display: flex; /* 플렉스 박스를 사용하여 카드 정렬 */
+            flex-wrap: wrap; /* 카드가 화면을 넘치면 다음 줄로 이동 */
+            gap: 16px; /* 카드 간격 */
+            justify-content: center; /* 카드 중앙 정렬 */
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Matched User Profiles</h1>
+    <div class="container">
+        <!-- 매칭된 유저를 반복적으로 출력 -->
+        {% for user in matching_users %}
+        <div class="card">
+            <!-- 유저의 기본 정보 표시 -->
+            <h2>{{ user.name }}</h2> <!-- 유저 이름 -->
+            <p><strong>Email:</strong> {{ user.email }}</p> <!-- 유저 이메일 -->
+            <p><strong>Current Major:</strong> {{ user.my_current_major }}</p> <!-- 현재 전공 -->
+            <p><strong>Tutoring Major:</strong> {{ user.my_tutoring_major }}</p> <!-- 튜터링 전공 -->
+            <p><strong>Sub Major:</strong> {{ user.my_tutoring_sub_major }}</p> <!-- 세부 전공 -->
+            <p><strong>Available Days:</strong> {{ user.my_available_days }}</p> <!-- 가능한 요일 -->
+            <p><strong>Available Times:</strong> {{ user.my_available_times }}</p> <!-- 가능한 시간대 -->
+            <!-- 신청하기 버튼: 클릭 시 해당 튜터에 대한 신청 페이지로 이동 -->
+            <a href="{% url 'webapp:reserve_tutor' user.id %}" class="btn">신청하기</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입3페이지</title>
+    <script>
+        // 새로운 필드셋 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');
+
+            // 새로운 필드셋(div) 생성
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('field-set');
+
+            // 요일 선택 드롭다운
+            const daySelect = document.createElement('select');
+            daySelect.name = 'available_days[]';
+            daySelect.required = true;
+            daySelect.innerHTML = document.getElementById('template-days').innerHTML;
+
+            // 시간 선택 드롭다운 (multiple 속성 추가)
+            const timeSelect = document.createElement('select');
+            timeSelect.name = 'available_times[]';
+            timeSelect.multiple = true; <!-- 중복 선택 가능 -->
+            timeSelect.required = true;
+            timeSelect.innerHTML = document.getElementById('template-times').innerHTML;
+
+            // Remove 버튼 추가
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerText = 'Remove';
+            removeButton.onclick = function() {
+                container.removeChild(newDiv);
+            };
+
+            // 필드셋에 추가
+            newDiv.appendChild(daySelect);
+            newDiv.appendChild(timeSelect);
+            newDiv.appendChild(removeButton);
+            container.appendChild(newDiv);
+        }
+    </script>
+</head>
+<body>
+    <h1>Sign Up - Step 3</h1>
+            <form method="POST">
+            {% csrf_token %}
+            <div id="dynamic-fields">
+                <div class="field-set">
+                    <label for="available_days">Available Days:</label>
+                    <select name="available_days[]" required>
+                        {% for day in available_days %}
+                            <option value="{{ day }}">{{ day }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="available_times">Available Time Slots:</label>
+                    <!-- multiple 속성 추가 -->
+                    <select name="available_times[]" multiple required>
+                        {% for time in available_times %}
+                        <option value="{{ time }}">{{ time }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+            </div>
+
+        <br>
+        <!-- 필드셋 추가 버튼 -->
+        <button type="button" onclick="addFields()">Add More</button>
+        <br><br>
+
+        <!-- 회원가입 완료 버튼 -->
+        <button type="submit">Complete Sign Up</button>
+
+        <!-- 숨겨진 템플릿 -->
+        <template id="template-days">
+            {% for day in available_days %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </template>
+        <template id="template-times">
+            {% for time in available_times %}
+                <option value="{{ time }}">{{ time }}</option>
+            {% endfor %}
+        </template>
+    </form>
+</body>
+</html>

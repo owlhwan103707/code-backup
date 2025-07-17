@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 2</title>
+    <script>
+        // JavaScript로 새로운 필드 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');
+
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('field-set');
+
+            const majorSelect = document.createElement('select');
+            majorSelect.name = 'tutoring_major[]';
+            majorSelect.required = true;
+            majorSelect.innerHTML = document.getElementById('template-major').innerHTML;
+
+            const subMajorSelect = document.createElement('select');
+            subMajorSelect.name = 'tutoring_sub_major[]';
+            subMajorSelect.innerHTML = document.getElementById('template-sub-major').innerHTML;
+
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerText = 'Remove';
+            removeButton.onclick = function() {
+                container.removeChild(newDiv);
+            };
+
+            newDiv.appendChild(majorSelect);
+            newDiv.appendChild(subMajorSelect);
+            newDiv.appendChild(removeButton);
+            container.appendChild(newDiv);
+        }
+    </script>
+</head>
+<body>
+    <h1>Sign Up - Step 2</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="current_major">Current Major:</label>
+        <select id="current_major" name="current_major" required>
+            {% for major in current_majors %}
+            <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <div id="dynamic-fields">
+            <div class="field-set">
+                <label for="tutoring_major">Tutoring Major:</label>
+                <select name="tutoring_major[]" required>
+                    {% for major in tutoring_majors %}
+                    <option value="{{ major }}">{{ major }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="tutoring_sub_major">Tutoring Sub-Major:</label>
+                <select name="tutoring_sub_major[]">
+                    {% for sub_major in sub_majors %}
+                    <option value="{{ sub_major }}">{{ sub_major }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <br>
+        <button type="button" onclick="addFields()">Add More</button>
+        <br><br>
+        <button type="submit">Next</button>
+
+        <!-- Hidden templates for cloning -->
+        <template id="template-major">
+            {% for major in tutoring_majors %}
+            <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </template>
+        <template id="template-sub-major">
+            {% for sub_major in sub_majors %}
+            <option value="{{ sub_major }}">{{ sub_major }}</option>
+            {% endfor %}
+        </template>
+    </form>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입2페이지</title>
+    <script>
+        // 전공 선택에 따라 세부 전공 업데이트
+        function updateSubMajors(selectElement) {
+            const tutoringData = {{ tutoring_data|safe }}; // tutoring_data는 서버에서 템플릿에 전달된 데이터 (JSON 형식으로 변환)
+            const selectedMajor = selectElement.value;  // 선택된 전공
+            const subMajorSelect = selectElement.closest('.field-set').querySelector('.tutoring_sub_major');  // 세부 전공을 선택하는 select 요소 찾기
+
+            // 기존 옵션 제거
+            subMajorSelect.innerHTML = '<option value="" disabled selected>Choose a sub-major</option>'; // 기존 옵션을 지우고 기본 선택 상태로 설정
+
+            // 새로운 옵션 추가
+            if (tutoringData[selectedMajor]) {  // 선택된 전공에 대한 세부 전공이 있는 경우
+                tutoringData[selectedMajor].forEach(subMajor => {  // 세부 전공을 하나씩 추가
+                    const option = document.createElement('option');
+                    option.value = subMajor;
+                    option.textContent = subMajor;  // 옵션의 텍스트를 세부 전공명으로 설정
+                    subMajorSelect.appendChild(option);  // 해당 옵션을 세부 전공 select에 추가
+                });
+            }
+        }
+
+        // 동적으로 필드 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');  // 동적으로 전공 및 세부 전공 필드를 추가할 컨테이너 찾기
+            const newFieldSet = document.createElement('div');  // 새로운 'field-set' div 생성
+            newFieldSet.className = 'field-set';  // div에 'field-set' 클래스 추가
+
+            // 새로운 전공 및 세부 전공 선택 필드를 포함한 HTML을 추가합니다.
+            newFieldSet.innerHTML = `
+                <label for="tutoring_major">Tutoring Major:</label>
+                <select name="tutoring_major[]" class="tutoring_major" required onchange="updateSubMajors(this)">
+                    <option value="" disabled selected>Choose a major</option>
+                    {% for major in tutoring_data.keys %}
+                    <option value="{{ major }}">{{ major }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="tutoring_sub_major">Tutoring Sub-Major:</label>
+                <select name="tutoring_sub_major[]" class="tutoring_sub_major" required>
+                    <option value="" disabled selected>Choose a sub-major</option>
+                </select>
+                <button type="button" onclick="this.closest('.field-set').remove()">Remove</button>  <!-- 'Remove' 버튼 클릭 시 해당 필드를 제거 -->
+            `;
+
+            container.appendChild(newFieldSet);  // 생성한 새로운 필드를 동적 필드 컨테이너에 추가
+        }
+    </script>
+</head>
+<body>
+    <h1>Sign Up - Step 2</h1> <!-- 페이지 제목 -->
+    <form method="POST"> <!-- form 제출 시 POST 방식으로 데이터를 보냄 -->
+        {% csrf_token %} <!-- CSRF 보호를 위한 토큰 삽입 -->
+
+        <!-- 현재 소속 전공 -->
+        <label for="current_major">Current Major:</label>
+        <select id="current_major" name="current_major" required>  <!-- 전공 선택 드롭다운 -->
+            {% for major in current_majors %}  <!-- 서버에서 받은 전공 목록을 반복 -->
+            <option value="{{ major }}">{{ major }}</option>  <!-- 전공 항목 추가 -->
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <div id="dynamic-fields"> <!-- 동적으로 추가되는 전공과 세부 전공 필드들이 포함될 부분 -->
+            <div class="field-set">
+                <!-- 튜터링 전공 선택 -->
+                <label for="tutoring_major">Tutoring Major:</label>
+                <select name="tutoring_major[]" class="tutoring_major" required onchange="updateSubMajors(this)">  <!-- 전공 선택 -->
+                    <option value="" disabled selected>Choose a major</option>  <!-- 기본 선택 항목 -->
+                    {% for major in tutoring_data.keys %}  <!-- 서버에서 받은 전공 목록을 반복 -->
+                    <option value="{{ major }}">{{ major }}</option>  <!-- 전공 항목 추가 -->
+                    {% endfor %}
+                </select>
+
+                <!-- 튜터링 세부 전공 선택 -->
+                <label for="tutoring_sub_major">Tutoring Sub-Major:</label>
+                <select name="tutoring_sub_major[]" class="tutoring_sub_major" required>  <!-- 세부 전공 선택 -->
+                    <option value="" disabled selected>Choose a sub-major</option>  <!-- 기본 선택 항목 -->
+                </select>
+            </div>
+        </div>
+
+        <!-- 필드 추가 버튼 -->
+        <button type="button" onclick="addFields()">Add More</button>  <!-- 필드를 더 추가하는 버튼 -->
+
+        <br><br>
+        <!-- 제출 버튼 -->
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

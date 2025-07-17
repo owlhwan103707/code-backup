@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 3</title>
+    {% load static %}
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB; /* 밝은 배경색 */
+            color: #171A1F; /* 텍스트 색상 */
+        }
+
+        /* 페이지 전체 컨테이너 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #FFFFFF; /* 흰색 배경 */
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+            border-radius: 10px;
+        }
+
+        /* 광고 배너 */
+        .ad-banner {
+            background-color: #E0E0E0;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        /* 헤더 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .header-logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .header-links {
+            font-size: 16px;
+            color: #12177A; /* primary-800 */
+            display: flex;
+            gap: 20px;
+            font-weight: 600;
+        }
+
+        .header-links a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        .header-links a:hover {
+            color: #636AE8; /* primary-500 */
+        }
+
+        /* 본문 컨텐츠 */
+        .content {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            height: 650px;
+            transform: translateX(-50%);
+            width: 800px;
+            background-color: #12177A;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            float:inline-end;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 10%;
+            border-top-right-radius: 10%;
+        }
+
+        .content_child {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            height: 620px;
+            transform: translateX(-50%);
+            width: 730px;
+            background-color: #FFFFFF;
+            padding: 20px;
+            box-sizing: border-box;
+            float: inline-end;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 10%;
+            border-top-right-radius: 10%;
+
+        }
+
+        .content h1 {
+            font-size: 45px;
+            line-height: 30px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            margin-top: 5px;
+            color: #12177A;
+        }
+
+        .content img {
+            display: block; /* 인라인 요소를 블록 요소로 변경하여 margin을 적용 */
+            margin: 10px auto 20px; /* 위쪽 여백 10px, 아래쪽 여백 20px, 좌우 중앙 정렬 */
+            height: 120px; /* 이미지 크기 줄이기 */
+            width: 120px; /* 이미지 크기 줄이기 */
+            border-radius: 50%; /* 원형으로 만들기 */
+            background-color: #FFFFFF; /* 배경색 */
+            padding: 10px; /* 여백 추가 */
+        }
+
+
+        /* h3 Tag Styling */
+        .dropdown-container h3 {
+            margin: 5px -5px 10px;
+            padding-right: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Dropdown Container */
+        .dropdown-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Dropdown Wrapper */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Dropdown Button */
+        .dropbtn {
+            border: 2px solid #171A1F;
+            color: #555;
+            padding: 10px 20px;
+            font-size: 13px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 200px;
+        }
+
+        .dropbtn span {
+            margin-right: 10px;
+        }
+
+        /* 기본 select 스타일 */
+select {
+    border: 2px solid #171A1F; /* 테두리 색상 */
+    color: #555; /* 글자 색상 */
+    padding: 10px 20px; /* 안쪽 여백 */
+    font-size: 13px; /* 글자 크기 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서 모양 */
+    width: auto; /* 넓이를 자동으로 설정 */
+    display: inline-block; /* 인라인 블록으로 설정 */
+}
+
+/* 선택된 상태 스타일 */
+select:focus {
+    outline: none; /* 기본 아웃라인 제거 */
+    box-shadow: 0 0 5px rgba(99, 106, 232, 0.5); /* 부드러운 포커스 효과 */
+}
+
+/* 옵션 리스트 스타일 */
+select option {
+    padding: 10px; /* 옵션 안쪽 여백 */
+    background-color: #fff; /* 배경색 */
+    color: #333; /* 글자 색상 */
+}
+
+/* 선택된 옵션 스타일 */
+select option:checked {
+    background-color: #636AE8; /* 선택된 옵션의 배경색 */
+    color: #fff; /* 선택된 옵션의 글자 색상 */
+}
+
+/* 동적 필드를 포함하는 컨테이너 */
+.dynamic-fields {
+    display: flex;
+    flex-direction: column; /* 세로로 쌓이게 */
+    gap: 20px; /* 필드 간 간격 */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.field-set {
+display: flex;
+    flex-direction: row; /* 각 필드를 가로로 정렬 */
+    align-items: center;
+    gap: 15px; /* 필드와 레이블 간의 간격 */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+
+    }
+
+
+
+
+/* 입력 필드 (text, select 등) */
+.dynamic-fields .field input,
+.dynamic-fields .field select {
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px; /* 최대 너비 설정 */
+    background-color: #f4f4f4;
+    transition: border 0.3s ease;
+}
+
+/* 입력 필드에 포커스가 있을 때 스타일 */
+.dynamic-fields .field input:focus,
+.dynamic-fields .field select:focus {
+    border-color: #636AE8;
+    box-shadow: 0 0 5px rgba(99, 106, 232, 0.5);
+}
+
+/* 레이블 스타일 */
+.dynamic-fields .field label {
+    font-size: 14px;
+    color: #333;
+    width: 120px; /* 레이블 너비 설정 */
+}
+
+/* 'Remove' 버튼 스타일 */
+.dynamic-fields .field .remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 'Remove' 버튼에 호버 스타일 */
+.dynamic-fields .field .remove-btn:hover {
+    background-color: #e60000;
+}
+
+/* 'Remove' 버튼 클릭시 애니메이션 */
+.dynamic-fields .field .remove-btn:active {
+    transform: scale(0.95);
+}
+
+/* 동적 필드의 개수가 많을 때 스크롤 처리 */
+.dynamic-fields {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.add-button {
+border:none;
+background-color: #fff;
+text-decoration: underline;
+}
+
+
+        /* Dropdown Content */
+        .dropdown-content {
+            display: none;
+            color:#171A1F;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1;
+            overflow: auto;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-content div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-content div:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        /* 하단 설명 및 버튼 */
+        .bottom-container {
+            z-index: 1;
+            display: flex;
+            font-family: Archivo, sans-serif;
+            flex-direction: column;  /* 수직으로 배치 */
+            align-items: center;     /* 중앙 정렬 */
+            justify-content: flex-end; /* 하단 정렬 */
+            width: 100%;
+            height: 100%;
+            margin-top: auto;        /* 하단에 고정 */
+            margin-bottom : 50px;
+        }
+        .bottom-button {
+            margin-top: 20px;
+            width: 150px;
+            height: 50px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Inter, sans-serif;
+            font-size: 18px;
+            line-height: 36px;
+            font-weight: 600;
+            color: #FFFFFFFF; /* white */
+            background: #636AE8FF; /* primary-500 */
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* 버튼 효과 */
+        .bottom-button:hover {
+            background: #4850E4FF; /* primary-550 */
+        }
+
+        .bottom-button:active {
+            background: #2C35E0FF; /* primary-600 */
+        }
+
+        .bottom-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        let fieldIndex = 1; // Add More 버튼을 클릭할 때마다 증가하는 인덱스
+
+        // 서버에서 전달받은 요일별 시간대 데이터를 JavaScript로 변환
+        const availableTimesByDay = {{ available_times|safe }};
+
+        // 처음 페이지 로드 시 초기 필드의 시간대를 설정
+        document.addEventListener('DOMContentLoaded', () => {
+            filterTimes(0); // 첫 번째 필드셋에 대해 필터링
+        });
+
+        // 새로운 필드셋 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');
+
+            // 새로운 필드셋(div) 생성
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('field-set');
+            newDiv.setAttribute('data-index', fieldIndex);
+
+            // 요일 선택 드롭다운
+            const daySelect = document.createElement('select');
+            daySelect.name = 'available_days[]';
+            daySelect.required = true;
+            daySelect.innerHTML = document.getElementById('template-days').innerHTML;
+            daySelect.setAttribute('onchange', `filterTimes(${fieldIndex})`); // onchange 이벤트 추가
+
+            // 시간 선택 드롭다운 (multiple 속성 추가)
+            const timeSelect = document.createElement('select');
+            timeSelect.name = `available_times[${fieldIndex}][]`; // 인덱스를 포함해 구분
+            timeSelect.multiple = true;
+            timeSelect.required = true;
+            timeSelect.id = `time-select-${fieldIndex}`;
+
+            // 기본 옵션 추가
+            updateTimeOptions(timeSelect, Object.keys(availableTimesByDay)[0]);
+
+            // Remove 버튼 추가
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerText = 'Remove';
+            removeButton.onclick = function () {
+                container.removeChild(newDiv);
+            };
+
+            // 필드셋에 추가
+            newDiv.appendChild(daySelect);
+            newDiv.appendChild(timeSelect);
+            newDiv.appendChild(removeButton);
+            container.appendChild(newDiv);
+
+            fieldIndex++; // 필드 인덱스 증가
+        }
+
+        // 선택된 요일에 따라 시간대 필터링
+        function filterTimes(index) {
+            const daySelect = document.querySelector(`[data-index="${index}"] select[name="available_days[]"]`);
+            const timeSelect = document.getElementById(`time-select-${index}`);
+            const selectedDay = daySelect.value;
+
+            if (selectedDay in availableTimesByDay) {
+                updateTimeOptions(timeSelect, selectedDay);
+            } else {
+                timeSelect.innerHTML = ''; // 해당 요일이 없으면 시간대 비움
+            }
+        }
+
+        // 시간대 옵션 업데이트
+        function updateTimeOptions(timeSelect, selectedDay) {
+            timeSelect.innerHTML = ''; // 기존 옵션 초기화
+            const times = availableTimesByDay[selectedDay] || [];
+            times.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+            <header class="header">
+                <div class="header-logo">
+                    <a href="{% url 'webapp:index' %}"> <!-- URL 경로를 Django 템플릿 태그로 변경 -->
+                        <img src="{% static 'Tulink 로고test.png' %}" alt="튜링크 로고">  <!--static 경로로 수정 -->
+                    </a>
+                </div>
+            </header>
+         <!-- 추가할 다른 콘텐츠들 -->
+        <div class="content">
+            <div class = "content_child">
+                <h1>회원 가입</h1>
+                <img src = "{% static 'user_img1.png' %}" alt="user 이미지">
+
+                <!-- 소속 전공 드롭박스 (중앙 배치) -->
+        <!-- 추가할 다른 콘텐츠들 -->
+        <form method="POST">
+        {% csrf_token %} <!-- CSRF 보안을 위한 토큰 -->
+
+                <div class="dropdown-container">
+                    <div class="dropdown">
+                        <div class="field-set" data-index="0">
+                            <h3>튜터링 가능 요일</h3>
+                            <label for="available_days"></label>
+                            <select name="available_days[]" required onchange="filterTimes(0)">
+                                {% for day in available_days %}
+                                    <option value="{{ day }}">{{ day }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <h3>튜터링 가능 시간대</h3>
+                            <label for="available_times"></label>
+                            <select id="time-select-0" name="available_times[0][]" multiple required>
+                                <!-- 시간대는 JavaScript에서 동적으로 추가 -->
+                            </select>
+
+                        </div>
+                        <div id="dynamic-fields"></div>
+                    </div>
+                </div>
+
+        <button type="button" onclick="addFields()" class = "add-button">+추가하기</button>
+        <!-- 제출 버튼 -->
+                <div class="bottom-container">
+                    <button class="bottom-button" onclick="window.location.href='signup_step3.html'">다음</button>
+                </div>
+
+        <!-- 템플릿: 새 필드셋 추가 시 복제 -->
+        <template id="template-days">
+            {% for day in available_days %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </template>
+    </form>
+</body>
+</html>

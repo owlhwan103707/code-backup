@@ -1,0 +1,40 @@
+<!-- 4장 DB-->
+<!-- 6장 게시판 수정삭제 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="book">
+        잠언 1장
+    </div>
+    <div class="bible">
+        <a href="{% url 'webapp:signup' %}">SIGNUP</a> |
+            {% if user.is_authenticated %}
+        <a href="{% url 'webapp:logout' %}">LOGOUT</a>
+            {% else %}
+        <a href="{% url 'webapp:login' %}">LOGIN</a>
+            {% endif %}
+
+        <table>
+            {% for record in bible_text %} <!-- 4장 DB-->
+            <tr>
+                <td class="left">
+                    <span style="color:rgb(162, 252, 252);">{{ record.verse_no }}</span>. <!-- 4장 DB-->
+                </td>
+                <td class="middle" style="text-align: left;">
+                    {{ record.book_text }}
+                </td>
+                <td class="right">
+                    <a href="/webapp/rhema/write/{{ record.id }}">W</a>
+                    <span style="color: lightsteelblue;"><b>/</b></span>
+                    <a href="/webapp/rhema/read/{{ record.id }}">R</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

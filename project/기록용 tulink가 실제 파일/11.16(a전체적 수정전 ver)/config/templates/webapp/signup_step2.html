@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 2</title>
+    <script>
+        // JavaScript로 새로운 필드 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');
+
+            // 새로운 필드셋(div) 생성
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('field-set');
+
+            // Tutoring Major 선택 필드 추가
+            const majorSelect = document.createElement('select');
+            majorSelect.name = 'tutoring_major[]';
+            majorSelect.required = true;
+            majorSelect.innerHTML = document.getElementById('template-major').innerHTML;
+
+            // Tutoring Sub-Major 선택 필드 추가
+            const subMajorSelect = document.createElement('select');
+            subMajorSelect.name = 'tutoring_sub_major[]';
+            subMajorSelect.innerHTML = document.getElementById('template-sub-major').innerHTML;
+
+            // Remove 버튼 추가
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerText = 'Remove';
+            removeButton.onclick = function() {
+                container.removeChild(newDiv);
+            };
+
+            // 새 필드셋에 필드 추가
+            newDiv.appendChild(majorSelect);
+            newDiv.appendChild(subMajorSelect);
+            newDiv.appendChild(removeButton);
+
+            // 필드셋을 컨테이너에 추가
+            container.appendChild(newDiv);
+        }
+    </script>
+</head>
+<body>
+    <!-- 회원가입 두 번째 단계: 현재 소속 전공, 튜터링 전공, 세부 전공 입력 -->
+    <!-- 이 파일은 views.py의 signup_step2 뷰와 연결되며, UserTulink 테이블의 데이터를 참조하여 드롭다운 옵션을 제공합니다. -->
+    <h1>Sign Up - Step 2</h1>
+    <form method="POST">
+        {% csrf_token %} <!-- CSRF 보안을 위한 토큰 -->
+
+        <!-- 현재 소속 전공 선택 -->
+        <label for="current_major">Current Major:</label>
+        <select id="current_major" name="current_major" required>
+            {% for major in current_majors %}
+            <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <!-- 동적으로 필드를 추가할 컨테이너 -->
+        <div id="dynamic-fields">
+            <div class="field-set">
+                <!-- 튜터링할 전공 선택 -->
+                <label for="tutoring_major">Tutoring Major:</label>
+                <select name="tutoring_major[]" required>
+                    {% for major in tutoring_majors %}
+                    <option value="{{ major }}">{{ major }}</option>
+                    {% endfor %}
+                </select>
+
+                <!-- 튜터링할 세부 전공 선택 -->
+                <label for="tutoring_sub_major">Tutoring Sub-Major:</label>
+                <select name="tutoring_sub_major[]">
+                    {% for sub_major in sub_majors %}
+                    <option value="{{ sub_major }}">{{ sub_major }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <br>
+        <!-- 새로운 필드셋 추가 버튼 -->
+        <button type="button" onclick="addFields()">Add More</button>
+        <br><br>
+        <!-- 다음 단계로 이동 버튼 -->
+        <button type="submit">Next</button>
+
+        <!-- 드롭다운 옵션 복제를 위한 숨겨진 템플릿 -->
+        <template id="template-major">
+            {% for major in tutoring_majors %}
+            <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </template>
+        <template id="template-sub-major">
+            {% for sub_major in sub_majors %}
+            <option value="{{ sub_major }}">{{ sub_major }}</option>
+            {% endfor %}
+        </template>
+    </form>
+</body>
+</html>

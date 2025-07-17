@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matched User Profiles</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Matched User Profiles</h1>
+    <div class="container">
+        {% for user in matching_users %}
+        <div class="card">
+            <h2>{{ user.name }}</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Current Major:</strong> {{ user.my_current_major }}</p>
+            <p><strong>Tutoring Major:</strong> {{ user.my_tutoring_major }}</p>
+            <p><strong>Sub Major:</strong> {{ user.my_tutoring_sub_major }}</p>
+            <p><strong>Available Days:</strong> {{ user.my_available_days }}</p>
+            <p><strong>Available Times:</strong> {{ user.my_available_times }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

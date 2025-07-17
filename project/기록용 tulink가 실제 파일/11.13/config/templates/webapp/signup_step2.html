@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 2</title>
+</head>
+<body>
+    <h1>Sign Up - Step 2</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="current_major">Current Major:</label>
+        <select id="current_major" name="current_major" required>
+            <option value="" disabled selected>Select your current major</option>
+            {% for major in current_majors %}
+                <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="tutoring_major">Tutoring Major:</label>
+        <select id="tutoring_major" name="tutoring_major" required>
+            <option value="" disabled selected>Select tutoring major</option>
+            {% for major in tutoring_majors %}
+                <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="tutoring_sub_major">Tutoring Sub-Major:</label>
+        <select id="tutoring_sub_major" name="tutoring_sub_major">
+            <option value="" disabled selected>Select tutoring sub-major</option>
+            {% for sub_major in sub_majors %}
+                <option value="{{ sub_major }}">{{ sub_major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

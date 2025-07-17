@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>롸잇</title>
+</head>
+<body>
+    <div class="bible">
+        <table>
+            <tr>
+                <td class="middle">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="button" onclick="history.back()">BACK</button>
+                        <button type="submit">
+                            SAVE
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

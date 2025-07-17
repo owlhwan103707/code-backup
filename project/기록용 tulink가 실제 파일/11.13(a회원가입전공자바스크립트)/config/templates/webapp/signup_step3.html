@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 3</title>
+</head>
+<body>
+    <h1>Sign Up - Step 3</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="available_days">Available Days:</label>
+        <select id="available_days" name="available_days" required>
+            <option value="" disabled selected>Select available days</option>
+            {% for day in available_days %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="available_times">Available Time Slots:</label>
+        <select id="available_times" name="available_times" required>
+            <option value="" disabled selected>Select available time slots</option>
+            {% for time in available_times %}
+                <option value="{{ time }}">{{ time }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit">Complete Sign Up</button>
+    </form>
+</body>
+</html>

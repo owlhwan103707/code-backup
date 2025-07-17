@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Available Times</title>
+</head>
+<body>
+    <h1>Select Available Times</h1>
+    <form method="POST" action="{% url 'webapp:do_tulink3' %}">
+        {% csrf_token %}
+        <label for="available_times">Select Available Time:</label>
+        <select id="available_times" name="available_times" required>
+            <option value="" disabled selected>Choose a time</option>
+            {% for time in available_times %}
+                <option value="{{ time }}">{{ time }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit">Complete</button>
+    </form>
+</body>
+</html>

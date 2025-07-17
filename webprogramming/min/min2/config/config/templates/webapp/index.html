@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>연세대학교 미래캠퍼스 투어</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        body {
+            background:rgba(61, 117, 61, 0.479);
+        }
+        #headline {
+            color: white;
+            text-align: center;
+            text-shadow: 3px 3px 5px gray;
+            padding: 10px;
+        }
+        #container {
+            width:292px;
+            margin:50px auto;
+        }
+        .card {
+            position:relative;
+            width:272px;
+            height:500px;
+            margin:20px 10px;
+            border:1px solid #0f0f0f33;
+            background-color:#ffffff;
+        }
+        .comment {
+            position:absolute;
+            left:10px;
+            top:300px;
+            padding:10px;
+            text-align:center;
+        }
+
+        @media screen and (min-width:768px) and (max-width:1719px) {
+            #headline {
+                color: white;
+                text-align: center;
+                text-shadow: 3px 3px 5px gray;
+                padding: 10px;
+            }
+            #container {
+                width:570px;
+                margin:50px auto;
+            }
+            .card {
+                position:relative;
+                width:550px;
+                height:242px;
+                margin:20px 10px;
+                border:1px solid #0f0f0f33;
+                background-color:#ffffff;
+            }
+            .comment {
+                position:absolute;
+                left:310px;
+                top:50px;
+                text-align:center;
+                width:200px;
+            }
+        }
+
+        @media screen and (min-width:1720px) {
+            #headline {
+                color: white;
+                text-align: center;
+                text-shadow: 3px 3px 5px gray;
+                padding: 10px;
+            }
+            #container {
+                width:1710px;
+                margin:50px auto;
+            }
+            .card {
+                position:relative;
+                float:left;
+                width:550px;
+                height:242px;
+                margin:10px;
+                border:1px solid #0f0f0f33;
+                background-color:#ffffff;
+            }
+            .comment {
+                position:absolute;
+                left:310px;
+                top:50px;
+                text-align:center;
+                width:200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {%  if message %}
+        <div id="headline">
+        <h4>{{ message }}</h4>    <!-- Template Variable사용 -->
+        </div>
+    {%  endif %}
+    <div id="container">
+        <div class="card">
+            <img src="/static/library.jpg">
+            <div class="comment">
+                <h3>중앙도서관</h3><br>
+                <h4>약 2천여석의 일반열람실과 자료열람실, 멀티미디어실, 학술정보교육실 그리고 19개의 세미나실이 있다.</h4>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/static/road.jpg">
+            <div class="comment">
+                <h3>호수꽃길</h3><br>
+                <h4>호수변을 따라 이어진 벚나무 숲길로 이루어져 있으며 사계절 주역주민들에게 사랑받고 있다.</h4>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/static/dormitory.jpg">
+            <div class="comment">
+                <h3>기숙사</h3><br>
+                <h4>신입생들은 의무적으로 기숙사에서 생활 밀착형 명문교육(RC)을 학사 마스터 교수와 함께 받고 있다.</h4>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

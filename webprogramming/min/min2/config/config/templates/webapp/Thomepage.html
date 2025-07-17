@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tulink 비로그인 홈페이지</title>
+
+    <!-- Swiper.js CSS CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <style>
+        /* 페이지 전체 컨테이너 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* 광고 배너 */
+        .ad-banner {
+            background-color: #e0e0e0;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* 헤더 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .header-logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header-links {
+            font-size: 16px;
+        }
+
+        /* 메인 컨텐츠 */
+        .main-content {
+            background-color: #001f8e;
+            color: white;
+            font-size: 30px;
+            border-radius: 15px;
+            padding: 20px 0;
+        }
+
+        /* Swiper 스타일 */
+        .swiper-container {
+            width: 60%;
+            padding: 20px 0;
+        }
+
+        .swiper-slide {
+            background-color: #e0e7ff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .swiper-slide img {
+            width: 60%; /* 이미지 너비를 슬라이드 너비의 80%로 줄임 */
+            max-width: 240;
+            max-height: 270px; /* 이미지의 최대 높이를 제한 */
+            height: auto; /* 이미지 비율을 유지하면서 크기 조절 */
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+
+        /* 하단 설명 및 버튼 */
+        .footer {
+            font-size: 35px;
+            color: #001f8e;
+            margin: 20px 0;
+        }
+
+        /* 버튼 스타일 */
+        .start-button {
+            font-size: 20px;
+            color: white;
+            background-color: #5a73f6;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 광고 배너 -->
+
+
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-logo">Tulink</div>
+            <div class="header-links">
+                <a href="#">로그인</a> | <a href="#">회원가입</a>
+            </div>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <section class="main-content">
+            <h1>Tulink가 뭐예요?</h1>
+        </section>
+
+        <!-- Swiper 캐러셀 섹션 -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <img src="/static/supreme.jpg" alt="양방향 학습 시스템 이미지">
+                    <h3>양방향 학습 시스템</h3>
+                    <p>저희 튜링크에서는 모든 이용자가 튜티이자 튜터입니다.</p>
+                </div>
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <img src="/static/supreme.jpg" alt="언제 어디서나 가능 이미지">
+                    <h3>언제 어디서나 가능!</h3>
+                    <p>내가 원하는 시간에, 장소에서 튜링크 버튼만 클릭하면 찾고 있는 궁금증을 해결할 수 있습니다.</p>
+                </div>
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <img src="/static/supreme.jpg" alt="학생을 위한 가격 이미지">
+                    <h3>학생을 위한 가격!</h3>
+                    <p>교내 재학생을 대상으로 타 플랫폼 대비 저렴한 가격에 서비스를 제공합니다.</p>
+                </div>
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <img src="/static/supreme.jpg" alt="추가 이미지 1">
+                    <h3>전공외의 다양한 과목</h3>
+                    <p>교내의 전공과목을 포함한 전공외의 과목도 튜터링 시스템을 제공합니다.</p>
+                </div>
+                <!-- Slide 5 -->
+                <div class="swiper-slide">
+                    <img src="/static/supreme.jpg" alt="추가 이미지 2">
+                    <h3>첫 가입시 Tulink 이용 '5회 무료'</h3>
+                    <p>사용자가 튜터와의 매칭시 Link를 1회 소모하게 됩니다.</p>
+                </div>
+                <!-- Slide 6 -->
+                <div class="swiper-slide">
+                    <img src="/static/supreme.jpg" alt="추가 이미지 3">
+                    <h3>Tulink의 메달 시스템</h3>
+                    <p>튜링크 내에서는 사용자의 경험 및 숙련도에 따라 매달을 부여합니다.</p>
+                </div>
+            </div>
+
+            <!-- 캐러셀 네비게이션 버튼 -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+
+        <!-- 하단 설명 및 버튼 -->
+        <footer class="footer">
+            여러분이 만드는 튜링크 시작해 봐요
+        </footer>
+        <a href="#" class="start-button">Tulink 하러가기</a>
+    </div>
+
+    <!-- Swiper.js JavaScript CDN -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Swiper 설정
+        const swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3, // 한 번에 3개씩 표시
+            spaceBetween: 30, // 슬라이드 간 간격
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            loop: true, // 무한 루프
+            breakpoints: {
+                768: {
+                    slidesPerView: 1, // 화면이 작아지면 한 개씩 표시
+                },
+                1024: {
+                    slidesPerView: 2, // 중간 크기에서는 두 개씩 표시
+                }
+            }
+        });
+    </script>
+</body>
+</html>

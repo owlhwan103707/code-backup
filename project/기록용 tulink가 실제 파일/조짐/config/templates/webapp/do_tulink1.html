@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Major</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .card h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select the Major You Want Tutoring For</h1>
+    <form method="POST" action="{% url 'webapp:do_tulink2' %}">
+    {% csrf_token %}
+    <label for="college">Select College:</label>
+    <select id="college" name="college" required>
+        <option value="" disabled selected>Choose a college</option>
+        {% for college in colleges %}
+            <option value="{{ college }}">{{ college }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <div class="card-container">
+        {% for major in majors %}
+        <label>
+            <div class="card">
+                <img src="{% static 'road.jpg' %}" alt="Major Image">
+                <h3>{{ major }}</h3>
+                <input type="radio" name="major" value="{{ major }}" required hidden>
+            </div>
+        </label>
+        {% endfor %}
+    </div>
+    <div class="form-container">
+        <button type="submit" class="submit-button">Next</button>
+    </div>
+</form>
+
+</body>
+</html>

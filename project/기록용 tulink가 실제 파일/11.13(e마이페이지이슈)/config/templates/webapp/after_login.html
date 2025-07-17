@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After Login</title>
+</head>
+<body>
+    <!-- 사용자 환영 메시지 -->
+    <h1>Welcome, {{ user_name }}!</h1> <!-- 로그인한 사용자 이름을 표시 -->
+
+    <!-- 로그인 성공 메시지 -->
+    <p>You have successfully logged in.</p>
+
+    <!-- 로그아웃 링크 -->
+    <a href="{% url 'webapp:logout_view' %}">로그아웃</a>
+    <!-- 'webapp:logout_view'는 urls.py에서 로그아웃 기능을 담당하는 뷰에 매핑 -->
+
+    <!-- 마이페이지 링크 -->
+    <a href="{% url 'webapp:mypage_view' %}">마이페이지</a>
+    <!-- 'webapp:mypage_view'는 urls.py에서 마이페이지를 표시하는 뷰에 매핑 -->
+</body>
+</html>

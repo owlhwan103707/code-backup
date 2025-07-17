@@ -1,0 +1,34 @@
+<!--5장 DB게시판 읽기 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+</head>
+<body>
+    <div class="board">
+        <table>
+            {% for record in articles %}
+                {% if record.0|divisibleby:2 %}
+                <tr>
+                    <td style="width: 200px" class="odd">{{ record.1 }}</td>
+                    <td style="width: 500px" class="odd">{{ record.2|linebreaksbr }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td style="width: 200px" class="even">{{ record.1 }}</td>
+                    <td style="width: 500px" class="even">{{ record.2|linebreaksbr }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="board">
+        <button style="height: 40px; width: 80px;" onclick="location.href='/webapp/post'">
+            글쓰기
+        </button>
+    </div>
+</body>
+</html>

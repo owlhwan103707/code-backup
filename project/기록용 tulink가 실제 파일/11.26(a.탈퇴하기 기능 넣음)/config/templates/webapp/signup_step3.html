@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 3</title>
+    <script>
+        let fieldIndex = 1; // Add More 버튼을 클릭할 때마다 증가하는 인덱스
+
+        // 서버에서 전달받은 요일별 시간대 데이터를 JavaScript로 변환
+        const availableTimesByDay = {{ available_times|safe }};
+
+        // 처음 페이지 로드 시 초기 필드의 시간대를 설정
+        document.addEventListener('DOMContentLoaded', () => {
+            filterTimes(0); // 첫 번째 필드셋에 대해 필터링
+        });
+
+        // 새로운 필드셋 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');
+
+            // 새로운 필드셋(div) 생성
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('field-set');
+            newDiv.setAttribute('data-index', fieldIndex);
+
+            // 요일 선택 드롭다운
+            const daySelect = document.createElement('select');
+            daySelect.name = 'available_days[]';
+            daySelect.required = true;
+            daySelect.innerHTML = document.getElementById('template-days').innerHTML;
+            daySelect.setAttribute('onchange', `filterTimes(${fieldIndex})`); // onchange 이벤트 추가
+
+            // 시간 선택 드롭다운 (multiple 속성 추가)
+            const timeSelect = document.createElement('select');
+            timeSelect.name = `available_times[${fieldIndex}][]`; // 인덱스를 포함해 구분
+            timeSelect.multiple = true;
+            timeSelect.required = true;
+            timeSelect.id = `time-select-${fieldIndex}`;
+
+            // 기본 옵션 추가
+            updateTimeOptions(timeSelect, Object.keys(availableTimesByDay)[0]);
+
+            // Remove 버튼 추가
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.innerText = 'Remove';
+            removeButton.onclick = function () {
+                container.removeChild(newDiv);
+            };
+
+            // 필드셋에 추가
+            newDiv.appendChild(daySelect);
+            newDiv.appendChild(timeSelect);
+            newDiv.appendChild(removeButton);
+            container.appendChild(newDiv);
+
+            fieldIndex++; // 필드 인덱스 증가
+        }
+
+        // 선택된 요일에 따라 시간대 필터링
+        function filterTimes(index) {
+            const daySelect = document.querySelector(`[data-index="${index}"] select[name="available_days[]"]`);
+            const timeSelect = document.getElementById(`time-select-${index}`);
+            const selectedDay = daySelect.value;
+
+            if (selectedDay in availableTimesByDay) {
+                updateTimeOptions(timeSelect, selectedDay);
+            } else {
+                timeSelect.innerHTML = ''; // 해당 요일이 없으면 시간대 비움
+            }
+        }
+
+        // 시간대 옵션 업데이트
+        function updateTimeOptions(timeSelect, selectedDay) {
+            timeSelect.innerHTML = ''; // 기존 옵션 초기화
+            const times = availableTimesByDay[selectedDay] || [];
+            times.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Sign Up - Step 3</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div id="dynamic-fields">
+            <div class="field-set" data-index="0">
+                <label for="available_days">Available Days:</label>
+                <select name="available_days[]" required onchange="filterTimes(0)">
+                    {% for day in available_days %}
+                        <option value="{{ day }}">{{ day }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="available_times">Available Time Slots:</label>
+                <select id="time-select-0" name="available_times[0][]" multiple required>
+                    <!-- 시간대는 JavaScript에서 동적으로 추가 -->
+                </select>
+            </div>
+        </div>
+        <br>
+        <button type="button" onclick="addFields()">Add More</button>
+        <br><br>
+        <button type="submit">Complete Sign Up</button>
+
+        <!-- 템플릿: 새 필드셋 추가 시 복제 -->
+        <template id="template-days">
+            {% for day in available_days %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </template>
+    </form>
+</body>
+</html>

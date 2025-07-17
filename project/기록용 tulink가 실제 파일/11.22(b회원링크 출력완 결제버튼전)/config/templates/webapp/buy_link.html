@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>링크 구매</title>
+    <style>
+        .info-container {
+            display: flex; /* 텍스트와 이미지를 같은 줄에 배치 */
+            align-items: center; /* 세로로 중앙 정렬 */
+            justify-content: center; /* 가로로 중앙 정렬 */
+            gap: 10px; /* 이미지와 텍스트 사이 간격 */
+        }
+        .info-container img {
+            width: 50px; /* 이미지 크기 조정 */
+            height: 50px;
+            border-radius: 5px; /* 이미지 둥글게 */
+        }
+        .info-text {
+            font-size: 18px;
+            color: #333;
+        }
+        .link-balance {
+            font-weight: bold;
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <h1>링크 구매창입니다</h1>
+
+    <div class="info-container">
+        <img src="{{ medal_image }}" alt="메달 이미지"> <!-- 메달 이미지 -->
+        <div class="info-text">
+            {{ user_name }}님은 현재 <span class="link-balance">{{ link_balance }} Link</span>를 보유하고 있습니다.
+        </div>
+    </div>
+</body>
+</html>

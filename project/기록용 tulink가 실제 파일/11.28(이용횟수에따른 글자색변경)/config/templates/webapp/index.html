@@ -1,0 +1,63 @@
+
+<!--회원가입 버튼을 누를 시
+ <a href="{% url 'webapp:signup_step1' %}" class="btn">회원가입</a>  통해서
+ {% url 'webapp:signup_step1' %}는 Django 템플릿 태그로, urls.py에서 정의한 이름이 'signup_step1'인 URL 패턴을 자동으로 매핑
+ 그래서 urls.py에서 sinup_step1찾음
+그리고 signup_step1.html을 템플릿 디렉에서 랜더링함 (GET 요청) -> 데이터 조회 및 가져온다
+
+(POST요청 -> 데이터 전송 및 서버 상태변경)
+ -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tulink</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .container h1 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Tulink</h1>
+        <a href="{% url 'webapp:login' %}">로그인</a>
+        <a href="{% url 'webapp:signup_step1' %}">회원가입</a>
+
+    </div>
+</body>
+</html>

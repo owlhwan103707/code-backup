@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>링크 구매</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .info-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px;
+        }
+        .info-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+        .info-text {
+            font-size: 18px;
+            color: #333;
+        }
+        .link-balance {
+            font-weight: bold;
+            color: orange;
+        }
+        .link-options {
+            margin: 20px;
+            text-align: left;
+        }
+        .link-options h2 {
+            color: #333;
+        }
+        .link-options table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        .link-options th, .link-options td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .link-options th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        .link-options td {
+            vertical-align: middle;
+        }
+        .btn-purchase {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #FFA500;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-purchase:hover {
+            background-color: #e69500;
+        }
+    </style>
+</head>
+<body>
+    <!-- 페이지 제목 -->
+    <h1>링크 구매창입니다</h1>
+
+    <!-- 사용자 정보 섹션 -->
+    <div class="info-container">
+        <!-- 사용자 메달 이미지 출력 -->
+        <img src="{{ medal_image }}" alt="메달 이미지"> <!-- medal_image는 view에서 전달된 메달 이미지 URL -->
+        <div class="info-text">
+            <!-- 사용자 이름과 현재 보유하고 있는 Link 출력 -->
+            {{ user_name }}님은 현재 <span class="link-balance">{{ link_balance }} Link</span>를 보유하고 있습니다.
+            <!-- user_name은 현재 로그인한 사용자의 이름, link_balance는 사용자의 보유 Link 수량 -->
+        </div>
+    </div>
+
+    <!-- 링크 구매 옵션 섹션 -->
+    <div class="link-options">
+        <!-- 섹션 제목 -->
+        <h2>구매 가능한 Link 옵션</h2>
+        <table>
+            <!-- 테이블 헤더 -->
+            <thead>
+                <tr>
+                    <th>Link 수량</th> <!-- 구매할 Link의 개수 -->
+                    <th>기본 가격</th> <!-- 할인 없이 기본적으로 책정된 가격 -->
+                    <th>할인 가격</th> <!-- 할인된 가격 (해당하는 경우) -->
+                    <th>구매</th> <!-- 구매 버튼 -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- link_options 리스트를 반복문으로 출력 -->
+                {% for option in link_options %}
+                <tr>
+                    <!-- Link 수량 출력 -->
+                    <td>{{ option.count }} Link</td> <!-- option.count는 Link 수량 -->
+
+                    <!-- 기본 가격 출력 -->
+                    <td>{{ option.price }}원</td> <!-- option.price는 기본 가격 -->
+
+                    <!-- 할인 가격 출력 -->
+                    <td>
+                        {% if option.discounted_price != "없음" %}
+                            <!-- 할인 가격이 있는 경우 해당 가격 출력 -->
+                            {{ option.discounted_price }}원
+                        {% else %}
+                            <!-- 할인 가격이 없는 경우 '없음' 출력 -->
+                            없음
+                        {% endif %}
+                    </td>
+
+                    <!-- 구매 버튼 -->
+                    <td>
+                        <!-- 구매 버튼 링크 -->
+                        <a href="{% url 'webapp:scan_qr' %}?count={{ option.count }}&price=
+                            {% if option.discounted_price != '없음' %}
+                                {{ option.discounted_price }}
+                            {% else %}
+                                {{ option.price }}
+                            {% endif %}" class="btn-purchase">
+                            <!-- 버튼에 표시되는 가격 -->
+                            {% if option.discounted_price != "없음" %}
+                                {{ option.discounted_price }}원
+                            {% else %}
+                                {{ option.price }}원
+                            {% endif %}
+                        </a>
+                        <!-- 구매 버튼은 scan_qr 페이지로 이동하며, count와 선택된 가격(price 또는 discounted_price)을 쿼리스트링으로 전달 -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

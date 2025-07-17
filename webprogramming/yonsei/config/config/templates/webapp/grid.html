@@ -1,0 +1,25 @@
+<!--  #3장템플릿 시스템 -->
+
+{% extends "webapp/header.html" %}
+
+{% block content %}
+    {% if type == 1 %}
+        <ol>
+            {% for val in process %}
+                <li>{{ val }}</li>
+            {% endfor %}
+        </ol>
+    {% elif type == 2 %}
+        <ul>
+            {% for val in process %}
+                <li>{{ val }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <ol type="a" start="{{ type }}">
+            {% for val in process %}
+                <li>{{ val }}</li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endblock %}

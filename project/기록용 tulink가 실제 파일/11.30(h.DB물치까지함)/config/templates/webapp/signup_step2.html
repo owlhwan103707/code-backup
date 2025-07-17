@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>회원가입2페이지</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB; /* 밝은 배경색 */
+            color: #171A1F; /* 텍스트 색상 */
+        }
+
+        /* 페이지 전체 컨테이너 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #FFFFFF; /* 흰색 배경 */
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+            border-radius: 10px;
+        }
+
+        /* 광고 배너 */
+        .ad-banner {
+            background-color: #E0E0E0;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        /* 헤더 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .header-logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .header-links {
+            font-size: 16px;
+            color: #12177A; /* primary-800 */
+            display: flex;
+            gap: 20px;
+            font-weight: 600;
+        }
+
+        .header-links a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        .header-links a:hover {
+            color: #636AE8; /* primary-500 */
+        }
+
+        /* 본문 컨텐츠 */
+        .content {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            height: 650px;
+            transform: translateX(-50%);
+            width: 800px;
+            background-color: #12177A;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            float:inline-end;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 10%;
+            border-top-right-radius: 10%;
+        }
+
+        .content_child {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            height: 620px;
+            transform: translateX(-50%);
+            width: 730px;
+            background-color: #FFFFFF;
+            padding: 20px;
+            box-sizing: border-box;
+            float: inline-end;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 10%;
+            border-top-right-radius: 10%;
+
+        }
+
+        .content h1 {
+            font-size: 45px;
+            line-height: 30px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            margin-top: 5px;
+            color: #12177A;
+        }
+
+        .content img {
+            display: block; /* 인라인 요소를 블록 요소로 변경하여 margin을 적용 */
+            margin: 10px auto 20px; /* 위쪽 여백 10px, 아래쪽 여백 20px, 좌우 중앙 정렬 */
+            height: 120px; /* 이미지 크기 줄이기 */
+            width: 120px; /* 이미지 크기 줄이기 */
+            border-radius: 50%; /* 원형으로 만들기 */
+            background-color: #FFFFFF; /* 배경색 */
+            padding: 10px; /* 여백 추가 */
+        }
+
+       /* 중앙 드롭박스 */
+        .central-dropdown {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px; /* h3와 드롭박스 사이 간격 */
+            align-items: center; /* 텍스트와 드롭박스를 수평으로 정렬 */
+        }
+
+        /* h3 Tag Styling */
+        .central-dropdown h3,
+        .dropdown-container h3 {
+            margin: 10px 0 10px;
+            padding-right: 10px;
+            font-size: 15px;
+            color: #333;
+        }
+
+        /* Dropdown Container */
+        .dropdown-container {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Dropdown Wrapper */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            align-items: center;
+            gap: 10px;
+
+        }
+
+        /* Dropdown Button */
+        .dropbtn {
+            border: 2px solid #171A1F;
+            color: #555;
+            padding: 10px 20px;
+            font-size: 13px;
+            /*border: none;*/
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 200px;
+        }
+
+        .dropbtn span {
+            margin-right: 10px;
+        }
+
+/* 기본 select 스타일 */
+select {
+    border: 2px solid #171A1F; /* 테두리 색상 */
+    color: #555; /* 글자 색상 */
+    padding: 10px 20px; /* 안쪽 여백 */
+    font-size: 13px; /* 글자 크기 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서 모양 */
+    width: auto; /* 넓이를 자동으로 설정 */
+    display: inline-block; /* 인라인 블록으로 설정 */
+}
+
+/* 선택된 상태 스타일 */
+select:focus {
+    outline: none; /* 기본 아웃라인 제거 */
+    box-shadow: 0 0 5px rgba(99, 106, 232, 0.5); /* 부드러운 포커스 효과 */
+}
+
+/* 옵션 리스트 스타일 */
+select option {
+    padding: 10px; /* 옵션 안쪽 여백 */
+    background-color: #fff; /* 배경색 */
+    color: #333; /* 글자 색상 */
+}
+
+/* 선택된 옵션 스타일 */
+select option:checked {
+    background-color: #636AE8; /* 선택된 옵션의 배경색 */
+    color: #fff; /* 선택된 옵션의 글자 색상 */
+}
+
+/* 동적 필드를 포함하는 컨테이너 */
+.dynamic-fields {
+    display: flex;
+    flex-direction: column; /* 세로로 쌓이게 */
+    gap: 20px; /* 필드 간 간격 */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.field-set {
+display: flex;
+    flex-direction: row; /* 각 필드를 가로로 정렬 */
+    align-items: center;
+    gap: 15px; /* 필드와 레이블 간의 간격 */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+
+    }
+
+/* 입력 필드 (text, select 등) */
+.dynamic-fields .field input,
+.dynamic-fields .field select {
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px; /* 최대 너비 설정 */
+    background-color: #f4f4f4;
+    transition: border 0.3s ease;
+}
+
+/* 입력 필드에 포커스가 있을 때 스타일 */
+.dynamic-fields .field input:focus,
+.dynamic-fields .field select:focus {
+    border-color: #636AE8;
+    box-shadow: 0 0 5px rgba(99, 106, 232, 0.5);
+}
+
+/* 레이블 스타일 */
+.dynamic-fields .field label {
+    font-size: 14px;
+    color: #333;
+    width: 120px; /* 레이블 너비 설정 */
+}
+
+/* 'Remove' 버튼 스타일 */
+.dynamic-fields .field .remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 'Remove' 버튼에 호버 스타일 */
+.dynamic-fields .field .remove-btn:hover {
+    background-color: #e60000;
+}
+
+/* 'Remove' 버튼 클릭시 애니메이션 */
+.dynamic-fields .field .remove-btn:active {
+    transform: scale(0.95);
+}
+
+/* 동적 필드의 개수가 많을 때 스크롤 처리 */
+.dynamic-fields {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.add-button {
+border:none;
+background-color: #fff;
+text-decoration: underline;
+}
+
+        /* Dropdown Content */
+        .dropdown-content {
+            display: none;
+            color:#171A1F;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1;
+            overflow: auto;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-content div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-content div:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        /* 하단 설명 및 버튼 */
+        .bottom-container {
+            z-index: 1;
+            display: flex;
+            font-family: Archivo, sans-serif;
+            flex-direction: column;  /* 수직으로 배치 */
+            align-items: center;     /* 중앙 정렬 */
+            justify-content: flex-end; /* 하단 정렬 */
+            width: 100%;
+            height: 100%;
+            margin-top: auto;        /* 하단에 고정 */
+            margin-bottom : 50px;
+        }
+        .bottom-button {
+            margin-top: 20px;
+            width: 150px;
+            height: 50px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Inter, sans-serif;
+            font-size: 18px;
+            line-height: 36px;
+            font-weight: 600;
+            color: #FFFFFFFF; /* white */
+            background: #636AE8FF; /* primary-500 */
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* 버튼 효과 */
+        .bottom-button:hover {
+            background: #4850E4FF; /* primary-550 */
+        }
+
+        .bottom-button:active {
+            background: #2C35E0FF; /* primary-600 */
+        }
+
+        .bottom-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+        <!-- 헤더 -->
+            <header class="header">
+                <div class="header-logo">
+                    <a href="{% url 'webapp:index' %}"> <!-- URL 경로를 Django 템플릿 태그로 변경 -->
+                        <img src="{% static 'Tulink 로고test.png' %}" alt="튜링크 로고">  <!--static 경로로 수정 -->
+                    </a>
+                </div>
+            </header>
+         <!-- 추가할 다른 콘텐츠들 -->
+        <div class="content">
+            <div class = "content_child">
+                <h1>회원 가입</h1>
+                <img src = "{% static 'user_img1.png' %}" alt="user 이미지">
+
+                <!-- 소속 전공 드롭박스 (중앙 배치) -->
+        <!-- 추가할 다른 콘텐츠들 -->
+        <form method="POST">
+        {% csrf_token %} <!-- CSRF 보안을 위한 토큰 -->
+
+        <!-- 현재 소속 전공 -->
+            <div class="central-dropdown">
+                <h3>현재소속전공</h3>
+                <div class="dropdown">
+                    <select id="current_major" class = "dropbtn" name="current_major" required>  <!-- 전공 선택 드롭다운 -->
+                    {% for major in current_majors %}  <!-- 서버에서 받은 전공 목록을 반복 -->
+                    <option value="{{ major }}">{{ major }}</option>  <!-- 전공 항목 추가 -->
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br><br>
+
+             <div class="dropdown-container">
+                 <!-- Major 드롭다운 -->
+                 <div class="dropdown">
+                        <div id="dynamic-fields"> <!-- 동적으로 추가되는 전공과 세부 전공 필드들이 포함될 부분 -->
+                            <div class="field-set">
+                                <h3>튜터링할 전공</h3>
+                                <!-- 튜터링 전공 선택 -->
+                                <select name="tutoring_major[]" class="tutoring_major" required onchange="updateSubMajors(this)">  <!-- 전공 선택 -->
+                                    <option value="" disabled selected>Choose a major</option>  <!-- 기본 선택 항목 -->
+                                    {% for major in tutoring_data.keys %}  <!-- 서버에서 받은 전공 목록을 반복 -->
+                                    <option value="{{ major }}">{{ major }}</option>  <!-- 전공 항목 추가 -->
+                                    {% endfor %}
+                                </select>
+
+
+                                <h3>튜터링할 세부전공</h3>
+                                <!-- 튜터링 세부 전공 선택 -->
+                                <select name="tutoring_sub_major[]" class="tutoring_sub_major" required>  <!-- 세부 전공 선택 -->
+                                    <option value="" disabled selected>Choose a sub-major</option>  <!-- 기본 선택 항목 -->
+                                </select>
+                            </div>
+                        </div>
+                 </div>
+             </div>
+                <!-- 필드 추가 버튼 -->
+                <button type="button" onclick="addFields()" class = "add-button">+추가하기</button>  <!-- 필드를 더 추가하는 버튼 -->
+
+                <!-- 제출 버튼 -->
+                <div class="bottom-container">
+                    <button class="bottom-button" onclick="window.location.href='signup_step3.html'">다음</button>
+                </div>
+        </form>
+     </div>
+
+     <script>
+        // 전공 선택에 따라 세부 전공 업데이트
+        function updateSubMajors(selectElement) {
+            const tutoringData = {{ tutoring_data|safe }}; // tutoring_data는 서버에서 템플릿에 전달된 데이터 (JSON 형식으로 변환)
+            const selectedMajor = selectElement.value;  // 선택된 전공
+            const subMajorSelect = selectElement.closest('.field-set').querySelector('.tutoring_sub_major');  // 세부 전공을 선택하는 select 요소 찾기
+
+            // 기존 옵션 제거
+            subMajorSelect.innerHTML = '<option value="" disabled selected>Choose a sub-major</option>'; // 기존 옵션을 지우고 기본 선택 상태로 설정
+
+            // 새로운 옵션 추가
+            if (tutoringData[selectedMajor]) {  // 선택된 전공에 대한 세부 전공이 있는 경우
+                tutoringData[selectedMajor].forEach(subMajor => {  // 세부 전공을 하나씩 추가
+                    const option = document.createElement('option');
+                    option.value = subMajor;
+                    option.textContent = subMajor;  // 옵션의 텍스트를 세부 전공명으로 설정
+                    subMajorSelect.appendChild(option);  // 해당 옵션을 세부 전공 select에 추가
+                });
+            }
+        }
+
+        // 동적으로 필드 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');  // 동적으로 전공 및 세부 전공 필드를 추가할 컨테이너 찾기
+            const newFieldSet = document.createElement('div');  // 새로운 'field-set' div 생성
+            newFieldSet.className = 'field-set';  // div에 'field-set' 클래스 추가
+
+            // 새로운 전공 및 세부 전공 선택 필드를 포함한 HTML을 추가합니다.
+            newFieldSet.innerHTML = `
+                <label for="tutoring_major">튜터링할 전공</label>
+                <select name="tutoring_major[]" class="tutoring_major" required onchange="updateSubMajors(this)">
+                    <option value="" disabled selected>Choose a major</option>
+                    {% for major in tutoring_data.keys %}
+                    <option value="{{ major }}">{{ major }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="tutoring_sub_major">튜터링할 세부전공</label>
+                <select name="tutoring_sub_major[]" class="tutoring_sub_major" required>
+                    <option value="" disabled selected>Choose a sub-major</option>
+                </select>
+                <button type="button" onclick="this.closest('.field-set').remove()">Remove</button>  <!-- 'Remove' 버튼 클릭 시 해당 필드를 제거 -->
+            `;
+
+            container.appendChild(newFieldSet);  // 생성한 새로운 필드를 동적 필드 컨테이너에 추가
+        }
+    </script>
+</body>
+</html>

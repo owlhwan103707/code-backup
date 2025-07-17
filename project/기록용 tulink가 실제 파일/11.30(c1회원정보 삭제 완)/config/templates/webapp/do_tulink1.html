@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select College and Major</title>
+</head>
+<body>
+    <h1>Select College and Major</h1>
+    <form method="POST" action="{% url 'webapp:do_tulink1' %}">
+        {% csrf_token %}
+        <label for="college">Select College:</label>
+        <select id="college" name="college" required>
+            <option value="" disabled selected>Choose a college</option>
+            {% for college in colleges %}
+                <option value="{{ college }}">{{ college }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="major">Select Major:</label>
+        <select id="major" name="major" required>
+            <option value="" disabled selected>Choose a major</option>
+            {% for major in majors %}
+                <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

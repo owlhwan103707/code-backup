@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <form method="post" action="{% url 'webapp:login' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="/webapp/bible">
+      {% include "webapp/form_errors.html" %}
+
+      <a href="{% url 'webapp:signup' %}">SIGNUP</a>
+
+      <label for="username" style="font-size:0.8em">사용자ID</label>
+      <input type="text" class="form-control" name="username" id="username"
+             value="{{ form.username.value|default_if_none:'' }}">
+
+      <label for="password" style="font-size:0.8em">비밀번호</label>
+      <input type="password" class="form-control" name="password" id="password"
+             value="{{ form.password.value|default_if_none:'' }}">
+
+      <input type="submit" value="확인" style="background-color: lightgray;">
+</form>
+
+</body>
+</html>

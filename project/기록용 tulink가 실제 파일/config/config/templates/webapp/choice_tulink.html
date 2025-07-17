@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matched User Profiles</title>
+    {% load static %}
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #171A1F;
+        }
+
+        /* 페이지 전체 컨테이너 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #FFFFFF;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* 헤더 */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .header-logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .title {
+            display: flex;
+            font-size: 40px;
+            font-weight: bold;
+            color: #12177A;
+            padding: 10px;
+            margin-left: 200px;
+        }
+
+         /* 카드 컨테이너 */
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; /* 좌측 정렬 */
+            align-items: flex-start; /* 상단 정렬 */
+            gap: 20px;
+            max-height: 100vh; /* 부모 컨테이너의 높이를 채우기 */
+            height: 100vh; /* 화면의 높이를 채움 */
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #F9FAFB;
+            box-shadow: #636AE8FF;
+            overflow-y: auto; /* 세로 스크롤 활성화 */
+        }
+
+        /* 카드 디자인 스타일링 */
+        .card {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center; /* 세로 방향 중앙 정렬 */
+            width: 30%;
+            max-width: 200px; /* 카드의 최대 너비 제한 */
+            max-height: 100%;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border: 2px solid #12177A;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card h2 {
+           width: 30%;
+           padding: 0 10px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-family: Inter;
+           font-size: 14px;
+           line-height: 22px;
+           font-weight: 400;
+           color: #FFFFFFFF; /* white */
+           background: #12177AFF; /* primary-800 */
+           opacity: 1;
+           border: none;
+           border-radius: 13px;
+           text-align: center;
+        }
+
+        .card-subtitle {
+            margin-bottom: -30px;
+        }
+
+         .card img {
+            display: block; /* 인라인 요소를 블록 요소로 변경하여 margin을 적용 */
+            margin: 0 auto; /* 위쪽 여백 10px, 아래쪽 여백 20px, 좌우 중앙 정렬 */
+            height: 80px; /* 이미지 크기 줄이기 */
+            width: 80px; /* 이미지 크기 줄이기 */
+            border-radius: 50%; /* 원형으로 만들기 */
+            background-color: #FFFFFF; /* 배경색 */
+            padding: 10px; /* 여백 추가 */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .apply-button {
+            margin-top: 20px;
+            width: 80px;
+            height: 30px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Inter, sans-serif;
+            font-size: 13px;
+            line-height: 36px;
+            font-weight: bold;
+            color: #FFFFFFFF; /* white */
+            background: #636AE8FF; /* primary-500 */
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-logo">
+                <a href="{% url 'webapp:after_login' %}">
+                    <img src="{% static 'Tulink 로고test.png' %}" alt="튜링크 로고">
+                </a>
+            </div>
+        </header>
+        <div class="title">지식을 전달해 줄 오늘의 Tulink 튜터예요!</div>
+        <div class = "box-container">
+                <!-- 매칭된 유저를 반복적으로 출력 -->
+                {% for user in matching_users %}
+                <div class="card">
+                    <!-- 유저의 기본 정보 표시 -->
+                    <img src = "{% static 'user_img1.png' %}" alt="user 이미지">
+
+                    <h2>{{ user.name }}</h2> <!-- 유저 이름 -->
+                    <!--<p><strong>Email:</strong> {{ user.email }}</p> 유저 이메일 -->
+                    <p><div class="card-subtitle"><strong>튜터전공: </strong>{{ user.my_current_major }}</div></p> <!-- 현재 전공 -->
+                    <!--<p><strong>Tutoring Major:</strong> {{ user.my_tutoring_major }}</p>  튜터링 전공 -->
+                    <p><div class="card-subtitle"><strong>튜터과목: </strong>{{ user.my_tutoring_sub_major }}</div></p> <!-- 세부 전공 -->
+                    <!--<p><strong>Available Days:</strong> {{ user.my_available_days }}</p>  가능한 요일 -->
+                    <!--<p><strong>Available Times:</strong> {{ user.my_available_times }}</p>  가능한 시간대 -->
+                    <!-- 신청하기 버튼: 클릭 시 해당 튜터에 대한 신청 페이지로 이동 -->
+
+                    <a href="{% url 'webapp:reserve_tutor' user.id %}" class="apply-button">신청하기</a>
+
+                </div>
+                {% endfor %}
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Link 충전하기</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #171A1F;
+        }
+        .info-text {
+            font-family: 'Roboto', sans-serif; /* 예쁜 글씨체 */
+            font-size: 23px; /* 약간 큰 크기 */
+            font-weight: 600; /* 두께 강조 */
+            line-height: 1.5; /* 줄 간격 */
+            color: #12177A; /* 고급 파란색 */
+            padding: 10px; /* 여백 */
+            border-radius: 10px; /* 둥근 테두리 */
+            text-align: center; /* 중앙 정렬 */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+            /
+        }
+
+
+
+        .info-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .info-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+        .link-balance {
+            font-weight: bold;
+        }
+
+        /* 페이지 전체 컨테이너 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #FFFFFF;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* 헤더 */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .header-logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            color: #12177A;
+            margin-left: 340px;
+        }
+
+        /* 보유 링크 텍스트 */
+        .subtitle {
+            font-size: 30px;
+            color: #444444;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+
+        /* 본문 컨텐츠 */
+        .content {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            height: 730px;
+            transform: translateX(-50%);
+            width: 800px;
+            background-color: #12177A;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            float:inline-end;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 10%;
+            border-top-right-radius: 10%;
+        }
+
+        .content_child {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            height: 700px;
+            transform: translateX(-50%);
+            width: 730px;
+            background-color: #FFFFFF;
+            padding: 20px;
+            box-sizing: border-box;
+            float: inline-end;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 10%;
+            border-top-right-radius: 10%;
+
+        }
+
+        /* 가격 카드 스타일 */
+        .pricing-card {
+            background-color: #12177A;
+            margin: 37px auto;
+            padding: 15px;
+            border-radius: 30px;
+            width: 75%;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #f4f4f4;
+        }
+
+        /* 할인 표시 */
+        .pricing-card .discount {
+            font-size: 20px;
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 10px;
+        }
+
+        /* 할인과 버튼을 가로로 정렬 */
+        .pricing-card div {
+            display: flex; /* Flexbox로 변경 */
+            align-items: center; /* 세로 정렬 중앙 */
+        }
+        /* 최종 가격 버튼 */
+        .pricing-card .price {
+            background-color: #F2A900;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 25px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-left: auto;
+        }
+
+        .pricing-card .price:hover {
+            background-color: #F2A900;
+            color: #060b62;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-logo">
+                <a href="{% url 'webapp:after_login' %}">
+                    <img src="{% static 'Tulink 로고test.png' %}" alt="튜링크 로고">
+                </a>
+
+            </div>
+            <div class="title">Link 충전하기</div>
+        </header>
+
+        <div class="content">
+            <div class = "content_child">
+                    <div class="info-container">
+
+                            <!-- 가격 카드들 -->
+                            <img src="{{ medal_image }}" alt="메달 이미지"> <!-- medal_image는 view에서 전달된 메달 이미지 URL -->
+                            <div class="info-text">
+                                <!-- 사용자 이름과 현재 보유하고 있는 Link 출력 -->
+                                {{ user_name }}님은 현재
+                                <span class="link-balance" style="color: {{ link_color }};">
+                                    {{ link_balance }} Link
+                                </span>를 보유하고 있습니다.
+                                <!-- user_name은 현재 로그인한 사용자의 이름, link_balance는 사용자의 보유 Link 수량 -->
+                            </div>
+                    </div>
+
+
+                <!-- 가격 카드들 -->
+                {% for option in link_options %}
+                <div class="pricing-card">
+                    <!-- 왼쪽 콘텐츠: Link 정보와 할인 -->
+                    <div class="pricing-info">
+                        <div>{{ option.count }} Link</div>
+                        {% if option.discounted_price != "없음" %}
+                        <!-- 할인 가격이 있는 경우 -->
+                        <span class="discount">{{ option.price }}원</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- 오른쪽 버튼 -->
+                    <a href="{% url 'webapp:scan_qr' %}?count={{ option.count }}&price=
+                        {% if option.discounted_price != '없음' %}
+                            {{ option.discounted_price }}
+                        {% else %}
+                            {{ option.price }}
+                        {% endif %}" class="price">
+                        {% if option.discounted_price != "없음" %}
+                            {{ option.discounted_price }}원
+                        {% else %}
+                            {{ option.price }}원
+                        {% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

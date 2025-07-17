@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After Login</title>
+</head>
+<body>
+    <h1>Welcome, {{ user_name }}!</h1>
+    <p>You have successfully logged in.</p>
+
+    <!-- 로그아웃과 마이페이지 링크 추가 -->
+    <a href="{% url 'webapp:logout_view' %}">로그아웃</a>
+    <a href="{% url 'webapp:mypage_view' %}">마이페이지</a>
+    <br><br>
+
+    <!-- Tulink 하러가기 버튼 -->
+    <a href="{% url 'webapp:do_tulink1' %}">
+        <button>Tulink 하러가기</button>
+    </a>
+</body>
+</html>

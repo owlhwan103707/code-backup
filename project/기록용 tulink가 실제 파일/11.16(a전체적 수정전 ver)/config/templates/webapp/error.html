@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .error-container {
+            border: 1px solid #ff4c4c;
+            background-color: #ffe6e6;
+            color: #ff0000;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .error-message {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .suggestion {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <p class="error-message">{{ message }}</p>
+        <p class="suggestion">
+            Please try again or go back to the <a href="{% url 'webapp:index' %}">home page</a>.
+        </p>
+    </div>
+</body>
+</html>

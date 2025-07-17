@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Step 2</title>
+    <script>
+        // 전공 선택에 따라 세부 전공 업데이트
+        function updateSubMajors(selectElement) {
+            const tutoringData = {{ tutoring_data|safe }}; // JSON 데이터
+            const selectedMajor = selectElement.value;
+            const subMajorSelect = selectElement.closest('.field-set').querySelector('.tutoring_sub_major');
+
+            // 기존 옵션 제거
+            subMajorSelect.innerHTML = '<option value="" disabled selected>Choose a sub-major</option>';
+
+            // 새로운 옵션 추가
+            if (tutoringData[selectedMajor]) {
+                tutoringData[selectedMajor].forEach(subMajor => {
+                    const option = document.createElement('option');
+                    option.value = subMajor;
+                    option.textContent = subMajor;
+                    subMajorSelect.appendChild(option);
+                });
+            }
+        }
+
+        // 동적으로 필드 추가
+        function addFields() {
+            const container = document.getElementById('dynamic-fields');
+            const newFieldSet = document.createElement('div');
+            newFieldSet.className = 'field-set';
+
+            newFieldSet.innerHTML = `
+                <label for="tutoring_major">Tutoring Major:</label>
+                <select name="tutoring_major[]" class="tutoring_major" required onchange="updateSubMajors(this)">
+                    <option value="" disabled selected>Choose a major</option>
+                    {% for major in tutoring_data.keys %}
+                    <option value="{{ major }}">{{ major }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="tutoring_sub_major">Tutoring Sub-Major:</label>
+                <select name="tutoring_sub_major[]" class="tutoring_sub_major" required>
+                    <option value="" disabled selected>Choose a sub-major</option>
+                </select>
+                <button type="button" onclick="this.closest('.field-set').remove()">Remove</button>
+            `;
+
+            container.appendChild(newFieldSet);
+        }
+    </script>
+</head>
+<body>
+    <h1>Sign Up - Step 2</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="current_major">Current Major:</label>
+        <select id="current_major" name="current_major" required>
+            {% for major in current_majors %}
+            <option value="{{ major }}">{{ major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <div id="dynamic-fields">
+            <div class="field-set">
+                <label for="tutoring_major">Tutoring Major:</label>
+                <select name="tutoring_major[]" class="tutoring_major" required onchange="updateSubMajors(this)">
+                    <option value="" disabled selected>Choose a major</option>
+                    {% for major in tutoring_data.keys %}
+                    <option value="{{ major }}">{{ major }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="tutoring_sub_major">Tutoring Sub-Major:</label>
+                <select name="tutoring_sub_major[]" class="tutoring_sub_major" required>
+                    <option value="" disabled selected>Choose a sub-major</option>
+                </select>
+            </div>
+        </div>
+        <button type="button" onclick="addFields()">Add More</button>
+        <br><br>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

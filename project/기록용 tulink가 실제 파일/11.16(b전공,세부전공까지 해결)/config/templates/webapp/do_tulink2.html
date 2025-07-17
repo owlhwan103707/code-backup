@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Sub-Major</title>
+</head>
+<body>
+    <h1>Select Sub-Major</h1>
+    <form method="POST" action="{% url 'webapp:do_tulink2' %}">
+        {% csrf_token %}
+        <label for="sub_major">Select Sub-Major:</label>
+        <select id="sub_major" name="sub_major" required>
+            <option value="" disabled selected>Choose a sub-major</option>
+            {% for sub_major in sub_majors %}
+                <option value="{{ sub_major }}">{{ sub_major }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

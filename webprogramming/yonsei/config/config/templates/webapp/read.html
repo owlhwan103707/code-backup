@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>리드파일</title>
+</head>
+<body>
+    <table>
+    <tr>
+        <td colspan="3" style="height: 5em;">
+            {{ bible.book_text }}&nbsp;&nbsp;( 잠 1:{{ bible.verse_no }} )
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="background-color: black; height: 5em;">
+            <a href="/webapp/bible"> BIBLE</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/webapp/rhema/write/{{ bible.id }}">WRITE </a>
+        </td>
+    </tr>
+    {% if rhema %}
+        {% for rec in rhema %}
+        <tr>
+            <td class="middle" style="text-align: left;" colspan="2">
+                {{ rec.rhema|linebreaksbr }}
+            </td>
+            <td class="right">
+                <a href="/webapp/rhema/update/{{ rec.id }}">U</a>
+                <span style="color: lightsteelblue;"><b>/</b></span>
+                <a href="/webapp/rhema/delete/{{ rec.id }}">D</a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+</table>
+
+
+</body>
+</html>
